@@ -10,7 +10,7 @@ export const nowPlayingAction = async() => {
         const movies = data.results.map(MovieMapper.fromTheMovieDBToMovie)
         //const movies = data.results.map((movie) => MovieMapper.fromTheMovieDBToMovie(movie)) // Se puede usar tambien de esta manera
         
-        console.log(movies)
+        //console.log(movies)
         return movies
 
     } catch (error) {
