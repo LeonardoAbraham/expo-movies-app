@@ -5,11 +5,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useMovies } from '@/presentation/hooks/useMovies';
 import MainSlideshow from '@/presentation/components/movies/MainSlideshow';
+import MovieHorizontalList from '@/presentation/components/movies/MovieHorizontalList';
+
 
 const HomeScreen = () => {
 
     const safeArea = useSafeAreaInsets();
-    const {nowPlayingQuery} = useMovies();
+    const {nowPlayingQuery, popularQuery} = useMovies();
+
 
     if(nowPlayingQuery.isLoading) {
         return (
@@ -25,6 +28,9 @@ const HomeScreen = () => {
 
             {/* Carousel de imagenes */}
             <MainSlideshow movies={nowPlayingQuery.data ?? []} />
+
+            {/* Popular */}
+            <MovieHorizontalList title="Populares" movies={popularQuery.data ?? []} />
         </View>
     )
 }

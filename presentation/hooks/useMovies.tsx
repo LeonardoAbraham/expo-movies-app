@@ -1,4 +1,5 @@
 import { nowPlayingAction } from "@/core/actions/movies/now-playing.actions"
+import { popularMoviesAction } from "@/core/actions/movies/popular.action"
 import { useQuery } from "@tanstack/react-query"
 
 export const useMovies = () => {
@@ -10,8 +11,15 @@ export const useMovies = () => {
         staleTime: 1000 * 60 * 60 * 24, //24horas
     })
 
+    const popularQuery = useQuery({
+        queryKey:['movies', 'popular'],
+        queryFn: popularMoviesAction,
+        staleTime: 1000 * 60 * 60 * 24, //24horas
+    })
+
 
     return {
-        nowPlayingQuery
+        nowPlayingQuery,
+        popularQuery,
     };
 }
