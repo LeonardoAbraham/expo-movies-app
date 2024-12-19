@@ -1,6 +1,6 @@
 
 
-import { View, Text, ActivityIndicator } from 'react-native'
+import { View, Text, ActivityIndicator, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useMovies } from '@/presentation/hooks/useMovies';
@@ -11,7 +11,7 @@ import MovieHorizontalList from '@/presentation/components/movies/MovieHorizonta
 const HomeScreen = () => {
 
     const safeArea = useSafeAreaInsets();
-    const {nowPlayingQuery, popularQuery} = useMovies();
+    const {nowPlayingQuery, popularQuery, topRatedQuery, upcomingQuery} = useMovies();
 
 
     if(nowPlayingQuery.isLoading) {
@@ -23,15 +23,35 @@ const HomeScreen = () => {
     }
 
     return (
-        <View className='mt-2' style={{ paddingTop: safeArea.top }}>
-            <Text className='text-3xl font-bold px-4 mb-2'>MoviesApp</Text>
+        <ScrollView>
+            <View className='mt-2 pb-10' style={{ paddingTop: safeArea.top }}>
+                <Text className='text-3xl font-bold px-4 mb-2'>MoviesApp</Text>
 
-            {/* Carousel de imagenes */}
-            <MainSlideshow movies={nowPlayingQuery.data ?? []} />
+                {/* Carousel de imagenes */}
+                <MainSlideshow movies={nowPlayingQuery.data ?? []} />
 
-            {/* Popular */}
-            <MovieHorizontalList title="Populares" movies={popularQuery.data ?? []} />
-        </View>
+                {/* Popular */}
+                <MovieHorizontalList 
+                    title="Populares" 
+                    movies={popularQuery.data ?? []}
+                    className='mb-5'
+                />
+
+                {/* Top Rated */}
+                <MovieHorizontalList 
+                    title="Mejor Calificadas" 
+                    movies={topRatedQuery.data ?? []} 
+                    className='mb-5'
+                />
+
+                {/* Próximamente */}
+                <MovieHorizontalList 
+                    title="Próccimamente" 
+                    movies={upcomingQuery.data ?? []} 
+                    className='mb-5'
+                />
+            </View>
+        </ScrollView>
     )
 }
 
